@@ -3,8 +3,8 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.Chart;
 import com.example.demo.handle_exception.ResourceNotFoundException;
 import com.example.demo.mapper.ChartMapper;
-import com.example.demo.model.ChartRequest;
-import com.example.demo.model.ChartResponse;
+import com.example.demo.model.chart.ChartRequest;
+import com.example.demo.model.chart.ChartResponse;
 import com.example.demo.repository.ChartRepository;
 import com.example.demo.service.ChartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +21,13 @@ public class ChartServiceimpl implements ChartService {
     @Override
     public List<ChartResponse> getAllCharts(){
         List<Chart> charts = chartRepository.findAll();
-        return charts.stream().map( ChartMapper.INSTANCE::toResponse).collect(Collectors.toList());
+        return charts.stream().map(ChartMapper.INSTANCE::toResponse).collect(Collectors.toList());
     }
     @Override
     public ChartResponse getChartDetails(Long id){
         Chart chart = chartRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Chart with ID"+ id
                 + "not found"));
        return ChartMapper.INSTANCE.toResponse(chart);
-
     }
 
     @Override
@@ -57,5 +56,19 @@ public class ChartServiceimpl implements ChartService {
         Chart existingChart = chartRepository.findById(id)
                 .orElseThrow(()->new ResourceNotFoundException("Chart with id" + id + "not found"));
          chartRepository.delete(existingChart);
+    }
+
+    @Override
+    public ChartResponse getChartName(Long id) {
+        Chart chart = chartRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Chart with ID " + id + " not found"));
+        return ChartMapper.INSTANCE.toNameResponse(chart);
+    }
+
+    @Override
+    public ChartResponse getChartBody(Long id) {
+        Chart chart = chartRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Chart with ID " + id + " not found"));
+        return ChartMapper.INSTANCE.toBodyResponse(chart);
     }
 }

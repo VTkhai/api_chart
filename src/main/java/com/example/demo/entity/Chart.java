@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
+import org.hibernate.engine.spi.Resolution;
 
 @Data
 @NoArgsConstructor
@@ -19,16 +20,13 @@ public class Chart {
     @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Id Chart", example = "1")
     private Long id;
 
-    @Schema(description = "Chart name", example = "Chart coin")
-    @NotEmpty(message = "Name cannot be empty")
+    private String content;
+
     private String name;
 
-    @NotEmpty(message = "Resolution cannot be empty")
     private String resolution;
 
-    @NotEmpty(message = "Symbol cannot be empty")
     private String symbol;
 
-    @Column(nullable = false)
     private Long timestamp;
 }

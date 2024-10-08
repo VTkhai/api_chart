@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ChartRequest;
-import com.example.demo.model.ChartResponse;
+import com.example.demo.model.chart.ChartRequest;
+import com.example.demo.model.chart.ChartResponse;
 import com.example.demo.service.ChartService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -57,4 +57,17 @@ public class ChartController {
         return  ResponseEntity.ok(null);
     }
 
+    @Operation(summary = "Get name of Chart", description = "Get chart name")
+    @GetMapping("/{id}/name")
+    public ResponseEntity<ChartResponse> getChartName(@PathVariable Long id) {
+        ChartResponse chartResponse = chartService.getChartName(id);
+        return ResponseEntity.ok(chartResponse);
+    }
+
+    @Operation(summary = "Get body of Chart", description = "Get chart body")
+    @GetMapping("/{id}/body")
+    public ResponseEntity<ChartResponse> getChartBody(@PathVariable Long id) {
+        ChartResponse chartResponse = chartService.getChartBody(id);
+        return ResponseEntity.ok(chartResponse);
+    }
 }

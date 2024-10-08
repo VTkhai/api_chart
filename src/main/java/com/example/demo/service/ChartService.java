@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.model.ChartRequest;
-import com.example.demo.model.ChartResponse;
+import com.example.demo.model.chart.ChartRequest;
+import com.example.demo.model.chart.ChartResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,4 +13,8 @@ public interface ChartService {
     ChartResponse createChart(ChartRequest chartRequest);
     ChartResponse updateChart(Long id, ChartRequest chartRequest);
     void deleteChart(Long id);
+
+    ChartResponse getChartName(Long id);
+
+    ChartResponse getChartBody(Long id);
 }
