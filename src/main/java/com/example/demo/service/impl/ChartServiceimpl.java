@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.Chart;
+import com.example.demo.enums.ResolutionString;
 import com.example.demo.handle_exception.ResourceNotFoundException;
 import com.example.demo.mapper.ChartMapper;
 import com.example.demo.model.chart.ChartRequest;

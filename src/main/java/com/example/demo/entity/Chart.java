@@ -1,11 +1,11 @@
 package com.example.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.example.demo.enums.ResolutionString;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.engine.spi.Resolution;
+
 
 @Data
 @NoArgsConstructor
@@ -24,7 +24,9 @@ public class Chart {
 
     private String name;
 
-    private String resolution;
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private ResolutionString resolution;
 
     private String symbol;
 

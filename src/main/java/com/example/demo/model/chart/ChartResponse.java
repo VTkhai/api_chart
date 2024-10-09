@@ -1,5 +1,6 @@
 package com.example.demo.model.chart;
 
+import com.example.demo.enums.ResolutionString;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
@@ -14,9 +15,11 @@ public class ChartResponse {
 
     private String name;
 
-    private String resolution;
+    private ResolutionString resolution;
 
     private String symbol;
 
     private Long timestamp;
+
+    private String content;
 }
