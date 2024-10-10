@@ -11,6 +11,7 @@ import com.example.demo.service.ChartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,15 @@ public class ChartServiceimpl implements ChartService {
         if(chartRequest == null){
             throw new RuntimeException("Cannot be null");
         }
+        if (chartRequest.getTimestamp() == null) {
+            chartRequest.setTimestamp(LocalDateTime.now());// Gán giá trị hiện tại cho timestamp
+        }
+
+        ResolutionString resolution = chartRequest.getResolution();
+
         Chart chart = ChartMapper.INSTANCE.toEntity(chartRequest);
+        chart.setResolution(resolution);
+        chart.setTimestamp(chartRequest.getTimestamp());
 
         Chart savedChart = chartRepository.save(chart);
 
