@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +22,32 @@ public class ChartTemplates {
     @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Id Chart Template", example = "1")
     private Long id;
 
-    private String name;
-
+    @Column(name = "content", columnDefinition = "JSON", nullable = true)
     private String content;
+
+    @Column(name = "chart_properties", columnDefinition = "JSON", nullable = true)
+    private String chartProperties;
+
+    @Column(name = "main_source_properties", columnDefinition = "JSON", nullable = true)
+    private String mainSourceProperties;
+
+    @Column(name = "version", nullable = false)
+    private Integer version;
+
+    @Column(name = "created_at", updatable = false)
+    private Instant createdAt;
+
+    @Column(name = "updated_at")
+    private Instant updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = Instant.now();
+    }
 }

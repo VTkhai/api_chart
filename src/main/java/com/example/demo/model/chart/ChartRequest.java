@@ -4,8 +4,6 @@ import com.example.demo.enums.ResolutionString;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @Builder
@@ -19,7 +17,7 @@ public class ChartRequest {
 
     private String symbol;
 
-    private LocalDateTime timestamp;
+    private Long timestamp;
 
     private String content;
 }

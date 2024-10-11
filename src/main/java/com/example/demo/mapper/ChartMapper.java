@@ -22,13 +22,14 @@ public interface ChartMapper {
         ChartResponse response = new ChartResponse();
         response.setName(chart.getName()); // Giả sử ChartResponse có phương thức setName
         return response;
-}
+    }
     default ChartResponse toBodyResponse(Chart chart) {
         ChartResponse response = new ChartResponse();
         response.setName(chart.getName());
         response.setResolution(chart.getResolution());
         response.setSymbol(chart.getSymbol());
-        response.setTimestamp(chart.getTimestamp());// Giả sử ChartResponse có phương thức setName
+        response.setTimestamp(chart.getTimestamp());
+        response.setContent(chart.getContent());
         return response;
     }
 }

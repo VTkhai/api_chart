@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "chart_entity")
+@Table(name = "chart_data_entity")
 @Schema(description = "Chart Model")
 public class Chart {
     @Id
@@ -23,19 +24,37 @@ public class Chart {
     @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Id Chart", example = "1")
     private Long id;
 
-    @NotNull
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
-    @NotNull
+
+    @Column(name = "name", nullable = false, length = 255)
     private String name;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
+    @Column(name = "resolution", nullable = false, length = 50)
     private ResolutionString resolution;
 
-    @NotNull
+    @Column(name = "symbol", nullable = false, length = 100)
     private String symbol;
 
-    @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime timestamp;
+
+    @Column(name = "timestamp", nullable = false)
+    private Long timestamp;
+
+    @Column(name = "created_at", updatable = false)
+    private Instant createdAt;
+
+    @Column(name = "updated_at")
+    private Instant updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = Instant.now();
+    }
 }
